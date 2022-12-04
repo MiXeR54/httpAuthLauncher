@@ -40,6 +40,9 @@ app.get(
   ) => {
     const { login, context, password, minecraftAccess } = req.body;
 
+    console.log("login", login);
+    console.log("pass", password);
+
     if (!login && !password)
       return res.status(200).json({ error: "auth.wrongpassword" });
 
