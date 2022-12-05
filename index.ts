@@ -57,7 +57,7 @@ app.post(
           id: "",
           user: {
             username: login,
-            uuid: "",
+            uuid: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
             accessToken: "",
             properties: {
               test: "",
