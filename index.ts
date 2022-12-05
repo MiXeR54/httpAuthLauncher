@@ -39,7 +39,7 @@ app.get("/auth/test", (req, res) => {
 });
 
 app.post(
-  "/auth/authorizeUrl",
+  "/auth/authorize",
   (
     req: Request<any, any, AuthorizeUrlReq>,
     res: Response<AuthReport | Error>
