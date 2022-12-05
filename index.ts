@@ -34,10 +34,6 @@ interface AuthorizeUrlReq {
   //если false, то в AuthReport возвращать minecraftAccessToken не требуется
 }
 
-app.get("/auth/test", (req, res) => {
-  res.send("hello world");
-});
-
 app.post(
   "/auth/authorize",
   (
@@ -46,8 +42,7 @@ app.post(
   ) => {
     const { login, context, password, minecraftAccess } = req.body;
 
-    console.log("login", login);
-    console.log("pass", password);
+    console.log("body", req.body);
 
     if (!login && !password)
       return res.status(200).json({ error: "auth.wrongpassword" });
