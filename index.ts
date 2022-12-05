@@ -46,7 +46,7 @@ app.post(
     if (!login && !password)
       return res.status(200).json({ error: "auth.wrongpassword" });
 
-    if (login === "MiXeR54" && password.password === "test")
+    if (login === "MiXeR54" && password.password === "test") {
       return res.status(200).json({
         minecraftAccessToken: "",
         oauthAccessToken: "",
@@ -82,6 +82,9 @@ app.post(
           expireIn: 0,
         },
       });
+    } else {
+      return res.status(200).json({ error: "auth.wrongpassword" });
+    }
   }
 );
 
