@@ -3,6 +3,8 @@ import { AuthReport, Error } from "./types";
 
 const app = express();
 
+app.use(express.json());
+
 // GET getUserByUsernameUrl
 // GET getUserByLoginUrl
 // GET getUserByUUIDUrl
@@ -83,7 +85,7 @@ app.post(
         },
       });
     } else {
-      return res.status(200).json({ error: "auth.wrongpassword" });
+      return res.status(404).json({ error: "auth.wrongpassword" });
     }
   }
 );
