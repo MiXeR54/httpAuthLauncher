@@ -35,7 +35,7 @@ interface AuthorizeUrlReq {
 }
 
 app.post(
-  "/authorizeUrl",
+  "/auth/authorizeUrl",
   (
     req: Request<any, any, AuthorizeUrlReq>,
     res: Response<AuthReport | Error>
