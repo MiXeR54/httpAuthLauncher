@@ -34,7 +34,7 @@ interface AuthorizeUrlReq {
   //если false, то в AuthReport возвращать minecraftAccessToken не требуется
 }
 
-app.get("/auth", (req, res) => {
+app.get("/auth/test", (req, res) => {
   res.send("hello world");
 });
 
