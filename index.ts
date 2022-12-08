@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import morgan from "morgan";
-import { AuthReport, Error, HttpUser } from "./types";
+import { AuthReport, Error, HttpUser, HttpUserSession } from "./types";
 
 const app = express();
 app.use(express.json());
@@ -8,7 +8,6 @@ app.use(morgan("dev"));
 
 // GET getUserByUsernameUrl
 // GET getUserByLoginUrl
-// GET getUserByUUIDUrl
 // GET getUserByTokenUrl
 // POST authorizeUrl
 // POST refreshTokenUrl
@@ -22,6 +21,21 @@ app.use(morgan("dev"));
 // Методы authorizeUrl, refreshTokenUrl ожидают ответ типа AuthReport (См. Список объектов)
 // Методы joinServerUrl,updateServerIdUrl ожидают ответ 200 в случае успеха
 
+//GET getUserByTokenUrl
+app.get("/auth/current", (req, res: Response<HttpUserSession>) => {
+  console.log("getUserByTokenUrl");
+  res.set("Authorization", "Bearer token");
+  res.json({
+    id: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
+    user: {
+      username: "MiXeR54",
+      uuid: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
+      accessToken: "",
+      permissions: {},
+    },
+    expireIn: 0,
+  });
+});
 // GET getUserByUUIDUrl
 app.get("/auth/user/uuid/:uuid", (req, res: Response<HttpUser>) => {
   console.log("getUserByUUIDUrl");
