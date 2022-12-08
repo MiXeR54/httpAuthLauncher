@@ -3,10 +3,10 @@ export interface HttpUser {
   uuid: string;
   accessToken: string;
   permissions: {
-    perms: string[];
-    roles: string[];
+    perms?: string[];
+    roles?: string[];
   };
-  assets: {
+  assets?: {
     SKIN: {
       url: string;
       digest: string;
@@ -19,7 +19,7 @@ export interface HttpUser {
       digest: string;
     };
   };
-  properties: {
+  properties?: {
     [key: string]: string;
   };
 }

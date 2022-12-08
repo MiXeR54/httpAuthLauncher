@@ -1,9 +1,10 @@
 import express, { Request, Response } from "express";
-import { AuthReport, Error } from "./types";
+import morgan from "morgan";
+import { AuthReport, Error, HttpUser } from "./types";
 
 const app = express();
-
 app.use(express.json());
+app.use(morgan("dev"));
 
 // GET getUserByUsernameUrl
 // GET getUserByLoginUrl
@@ -21,6 +22,44 @@ app.use(express.json());
 // Методы authorizeUrl, refreshTokenUrl ожидают ответ типа AuthReport (См. Список объектов)
 // Методы joinServerUrl,updateServerIdUrl ожидают ответ 200 в случае успеха
 
+// GET getUserByUUIDUrl
+app.get("/auth/user/uuid/:uuid", (req, res: Response<HttpUser>) => {
+  console.log("getUserByUUIDUrl");
+  res.json({
+    username: "MiXeR54",
+    uuid: req.query.uuid as string,
+    accessToken: "",
+    permissions: {},
+  });
+});
+
+// GET getUserByUsernameUrl
+app.get("/auth/user/name/:username", (req, res: Response<HttpUser>) => {
+  console.log("getUserByUsernameUrl");
+  res.json({
+    username: req.query.username as string,
+    uuid: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
+    accessToken: "",
+    permissions: {},
+  });
+});
+
+interface CheckServerReq {
+  username: string;
+  serverId: string;
+}
+// POST checkServerUrl
+app.post("/auth/checkServer", (req: Request<any, any, CheckServerReq>, res) => {
+  console.log("checkServerUrl");
+  const { username, serverId } = req.body;
+  res.json({
+    username,
+    uuid: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
+    accessToken: "",
+    permissions: {},
+  });
+});
+
 interface AuthorizeUrlReq {
   login: string;
   context: {
@@ -33,7 +72,7 @@ interface AuthorizeUrlReq {
   minecraftAccess: boolean;
   //если false, то в AuthReport возвращать minecraftAccessToken не требуется
 }
-
+// POST authorizeUrl
 app.post(
   "/auth/authorize",
   (
@@ -41,8 +80,6 @@ app.post(
     res: Response<AuthReport | Error>
   ) => {
     const { login, context, password, minecraftAccess } = req.body;
-
-    console.log("body", req.body);
 
     if (!login && !password)
       return res.status(200).json({ error: "auth.wrongpassword" });
