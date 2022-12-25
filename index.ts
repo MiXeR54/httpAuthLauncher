@@ -1,25 +1,12 @@
 import express, { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
 import morgan from "morgan";
 import { AuthReport, Error, HttpUser, HttpUserSession } from "./types";
 
+const prisma = new PrismaClient();
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
-
-// GET getUserByUsernameUrl
-// GET getUserByLoginUrl
-// GET getUserByTokenUrl
-// POST authorizeUrl
-// POST refreshTokenUrl
-// POST updateServerIdUrl
-// POST joinServerUrl
-// POST checkServerUrl
-
-// Методы getUserByUsernameUrl, getUserByLoginUrl, getUserByUUIDUrl, checkServerUrl
-// ожидают ответ типа HttpUser (См. Список объектов), а данные получают в виде GET параметров
-// Метод getUserByTokenUrl ожидает ответ типа HttpUserSession (См. Список объектов)
-// Методы authorizeUrl, refreshTokenUrl ожидают ответ типа AuthReport (См. Список объектов)
-// Методы joinServerUrl,updateServerIdUrl ожидают ответ 200 в случае успеха
 
 //GET getUserByTokenUrl
 app.get("/auth/current", (req, res: Response<HttpUserSession>) => {
@@ -89,7 +76,7 @@ interface AuthorizeUrlReq {
 // POST authorizeUrl
 app.post(
   "/auth/authorize",
-  (
+  async (
     req: Request<any, any, AuthorizeUrlReq>,
     res: Response<AuthReport | Error>
   ) => {
@@ -98,7 +85,11 @@ app.post(
     if (!login && !password)
       return res.status(200).json({ error: "auth.wrongpassword" });
 
-    if (login === "MiXeR54" && password.password === "test") {
+    const candidate = await prisma.user.find({
+      where: { login, password },
+    });
+
+    if (candidate) {
       return res.status(200).json({
         minecraftAccessToken: "",
         oauthAccessToken: "",
