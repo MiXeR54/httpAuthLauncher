@@ -85,8 +85,8 @@ app.post(
     if (!login && !password)
       return res.status(200).json({ error: "auth.wrongpassword" });
 
-    const candidate = await prisma.user.find({
-      where: { login, password },
+    const candidate = await prisma.user.findFirst({
+      where: { login, password: password.password },
     });
 
     if (candidate) {
