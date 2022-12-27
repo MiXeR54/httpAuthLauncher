@@ -15,7 +15,7 @@ app.get("/auth/current", (req: Request, res: Response<HttpUserSession>) => {
   res.json({
     id: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
     user: {
-      username: "MiXeR54",
+      username: "",
       uuid: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
       accessToken: "",
       permissions: {},
