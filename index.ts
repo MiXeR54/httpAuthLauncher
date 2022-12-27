@@ -25,7 +25,7 @@ app.get("/auth/current", (req: Request, res: Response<HttpUserSession>) => {
 });
 // GET getUserByUUIDUrl
 app.get("/auth/user/uuid/:uuid", (req, res: Response<HttpUser>) => {
-  console.log("getUserByUUIDUrl");
+  console.log("getUserByUUIDUrl", req.query);
   res.json({
     username: "MiXeR54",
     uuid: req.query.uuid as string,
