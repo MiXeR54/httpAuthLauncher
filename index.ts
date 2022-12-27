@@ -9,8 +9,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //GET getUserByTokenUrl
-app.get("/auth/current", (req, res: Response<HttpUserSession>) => {
-  console.log("getUserByTokenUrl");
+app.get("/auth/current", (req: Request, res: Response<HttpUserSession>) => {
+  console.log(req.headers);
   res.set("Authorization", "Bearer token");
   res.json({
     id: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
