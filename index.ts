@@ -51,7 +51,7 @@ interface CheckServerReq {
 }
 // POST checkServerUrl
 app.post("/auth/checkServer", (req: Request<any, any, CheckServerReq>, res) => {
-  console.log("checkServerUrl");
+  // нужно возращать accessToken
   const { username, serverId } = req.body;
   res.json({
     username,
@@ -89,6 +89,7 @@ app.post(
       where: { login, password: password.password },
     });
 
+    // добавить логику с токеном
     if (candidate) {
       return res.status(200).json({
         minecraftAccessToken: "",
