@@ -90,8 +90,8 @@ app.post(
     if (candidate) {
       return res.status(200).json({
         minecraftAccessToken: "",
-        // oauthAccessToken: "",
-        // oauthRefreshToken: "",
+        oauthAccessToken: "",
+        oauthRefreshToken: "",
         oauthExpire: 0,
         session: {
           id: "",
