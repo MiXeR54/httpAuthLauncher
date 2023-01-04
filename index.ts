@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import { v4 } from "uuid";
 import { PrismaClient } from "@prisma/client";
 import morgan from "morgan";
 import { AuthReport, Error, HttpUser, HttpUserSession } from "./types";
@@ -10,6 +11,7 @@ app.use(morgan("dev"));
 
 //GET getUserByTokenUrl
 app.get("/auth/current", (req: Request, res: Response<HttpUserSession>) => {
+  console.log(req);
   res.set("Authorization", "Bearer token");
   res.json({
     id: "220a22d3-6c48-43c8-84c2-f66a399cafe5",
@@ -90,8 +92,8 @@ app.post(
     if (candidate) {
       return res.status(200).json({
         minecraftAccessToken: "",
-        oauthAccessToken: "",
-        oauthRefreshToken: "",
+        oauthAccessToken: v4(),
+        oauthRefreshToken: v4(),
         oauthExpire: 0,
         session: {
           id: "",
